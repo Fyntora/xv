@@ -1,6 +1,10 @@
 K=kernel
 U=user
 
+VERS=1.0
+VERSION_H = kernel/version.h
+
+
 OBJS = \
   $K/entry.o \
   $K/start.o \
@@ -73,6 +77,7 @@ CFLAGS += -fno-builtin-strchr -fno-builtin-exit -fno-builtin-malloc -fno-builtin
 CFLAGS += -fno-builtin-free
 CFLAGS += -fno-builtin-memcpy -Wno-main
 CFLAGS += -fno-builtin-printf -fno-builtin-fprintf -fno-builtin-vprintf
+CFLAGS += -DVERS=$VERS
 CFLAGS += -I.
 CFLAGS += $(shell $(CC) -fno-stack-protector -E -x c /dev/null >/dev/null 2>&1 && echo -fno-stack-protector)
 
@@ -86,7 +91,12 @@ endif
 
 LDFLAGS = -z max-page-size=4096
 
-$K/kernel: $(OBJS) $K/kernel.ld
+$(VERSION_H): VERSION
+	@echo "GEN     $@"
+	@tools/genversion.sh
+
+
+$K/kernel: ${VERSION_H} $(OBJS) $K/kernel.ld
 	$(LD) $(LDFLAGS) -T $K/kernel.ld -o $K/kernel $(OBJS) 
 	$(OBJDUMP) -S $K/kernel > $K/kernel.asm
 	$(OBJDUMP) -t $K/kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$$/d' > $K/kernel.sym
@@ -133,6 +143,7 @@ UPROGS=\
 	$U/_init\
 	$U/_nf\
 	$U/_ps\
+	$U/_uname \
 	$U/_kill\
 	$U/_ln\
 	$U/_ls\

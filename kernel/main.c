@@ -3,6 +3,7 @@
 #include "memlayout.h"
 #include "riscv.h"
 #include "defs.h"
+#include "version.h"
 
 volatile static int started = 0;
 
@@ -15,6 +16,7 @@ main()
     printfinit();
     printf("\n");
     printf("fynotavx1 kernel is booting\n");
+    printf("FyntoraXV %s (%s)\n", OS_VERSION, GIT_COMMIT);
     printf("\n");
     kinit();         // physical page allocator
     kvminit();       // create kernel page table
