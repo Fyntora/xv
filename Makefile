@@ -104,6 +104,10 @@ $K/kernel: ${VERSION_H} $(OBJS) $K/kernel.ld
 $K/%.o: $K/%.S
 	$(CC) -march=rv64gc -g -c -o $@ $<
 
+# Compile .c files
+$K/%.o: $K/%.c $(VERSION_H)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
 tags: $(OBJS)
 	etags kernel/*.S kernel/*.c
 

@@ -16,7 +16,8 @@ main()
     printfinit();
     printf("\n");
     printf("fynotaXV1 kernel is booting\n");
-    printf("FyntoraXV %s (%s)\n", OS_VERSION, GIT_COMMIT);
+    // printf("FyntoraXV %s (%s)\n", OS_VERSION, GIT_COMMIT);
+    printf("FyntoraXV %s (%s) built on %s\n", OS_VERSION, GIT_COMMIT, BUILD_DATE);
     printf("\n");
     kinit();         // physical page allocator
     kvminit();       // create kernel page table
