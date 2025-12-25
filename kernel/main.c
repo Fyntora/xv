@@ -15,7 +15,7 @@ main()
     consoleinit();
     printfinit();
     printf("\n");
-    printf("fynotavx1 kernel is booting\n");
+    printf("fynotaXV1 kernel is booting\n");
     printf("FyntoraXV %s (%s)\n", OS_VERSION, GIT_COMMIT);
     printf("\n");
     kinit();         // physical page allocator
